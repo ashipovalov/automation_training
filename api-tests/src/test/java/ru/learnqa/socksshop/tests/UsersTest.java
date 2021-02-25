@@ -1,24 +1,28 @@
 package ru.learnqa.socksshop.tests;
 
+import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.learnqa.socksshop.conditions.Conditions;
-import ru.learnqa.socksshop.conditions.StatusCodeCondition;
+
 import ru.learnqa.socksshop.payloads.UserPayload;
+import ru.learnqa.socksshop.responses.UserRegistrationResponse;
 import ru.learnqa.socksshop.services.UserApiService;
 
-import static org.hamcrest.Matchers.emptyString;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.core.Is.is;
+import java.util.Locale;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.text.IsEmptyString.emptyString;
 import static ru.learnqa.socksshop.conditions.Conditions.*;
 
 
 public class UsersTest {
 
     private final UserApiService userApiService = new UserApiService();
+    private final Faker faker= new Faker(new Locale("ru"));
 
     @BeforeClass
     public void setUp() {
@@ -28,49 +32,30 @@ public class UsersTest {
     @Test
     public void testCanBeRegistrationNewUser() {
         UserPayload user = new UserPayload()
-        .email("test@mail.gov")
-        .username(RandomStringUtils.randomAlphanumeric(8))
-        .password("test123");
-        userApiService.registerUser(user)
-                .shouldHave(statusCode(200));
-
-
-
-
-
-
-
-
-
-//                .body("id", is(not(emptyString())));
+                .email(faker.internet().emailAddress())
+                .username(faker.name().username())
+                .password(faker.internet().password());
+       UserRegistrationResponse response = userApiService.registerUser(user)
+                .shouldHave(statusCode(200))
+                .shouldHave(bodyField("id", is(not(emptyString()))))
+               .asPojo(UserRegistrationResponse.class);
+       response.getId();
 
 
     }
-//
-//    @Test
-//    public void testCanNotRegisterSameUserTwice(){
-//        UserPayload user = new UserPayload()
-//        .email("test@mail.gov")
-//        .username(RandomStringUtils.randomAlphanumeric(8))
-//        .password("test123");
-//        RestAssured.given().contentType(ContentType.JSON).log().all()
-//                .body(user)
-//                .when()
-//                .post("register")
-//                .then().log().all()
-//                .assertThat()
-//                .statusCode(200)
-//                .body("id", is(not(emptyString())));
-//
-//
-//        RestAssured.given().contentType(ContentType.JSON).log().all()
-//                .body(user)
-//                .when()
-//                .post("register")
-//                .then().log().all()
-//                .assertThat()
-//                .statusCode(500);
-//    }
+
+    @Test
+    public void testCanNotRegisterSameUserTwice(){
+        UserPayload user = new UserPayload()
+        .email(faker.internet().emailAddress())
+        .username(faker.name().username())
+        .password(faker.internet().password());
+        userApiService.registerUser(user)
+                .shouldHave(statusCode(200))
+                .shouldHave(bodyField("id", is(not(emptyString()))));
+        userApiService.registerUser(user)
+                .shouldHave(statusCode(500));
+    }
 
 
 }

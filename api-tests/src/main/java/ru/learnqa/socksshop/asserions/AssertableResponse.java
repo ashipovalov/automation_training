@@ -7,12 +7,17 @@ import ru.learnqa.socksshop.conditions.Condition;
 @RequiredArgsConstructor
 public class AssertableResponse {
 
-    private final Response register;
+    private final Response response;
 
 
-    public void shouldHave(Condition condition){
-        condition.check(register);
+    public AssertableResponse shouldHave(Condition condition){
+        condition.check(response);
+        return this;
 
+    }
+
+    public <T> T asPojo(Class<T> tClass){
+        return response.as(tClass);
     }
 
 
