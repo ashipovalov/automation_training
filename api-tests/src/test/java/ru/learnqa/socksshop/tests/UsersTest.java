@@ -22,7 +22,7 @@ import static ru.learnqa.socksshop.conditions.Conditions.*;
 public class UsersTest {
 
     private final UserApiService userApiService = new UserApiService();
-    private final Faker faker= new Faker(new Locale("ru"));
+    private final Faker faker = new Faker(new Locale("ru"));
 
     @BeforeClass
     public void setUp() {
@@ -35,21 +35,21 @@ public class UsersTest {
                 .email(faker.internet().emailAddress())
                 .username(faker.name().username())
                 .password(faker.internet().password());
-       UserRegistrationResponse response = userApiService.registerUser(user)
+        UserRegistrationResponse response = userApiService.registerUser(user)
                 .shouldHave(statusCode(200))
                 .shouldHave(bodyField("id", is(not(emptyString()))))
-               .asPojo(UserRegistrationResponse.class);
-       response.getId();
+                .asPojo(UserRegistrationResponse.class);
+        response.getId();
 
 
     }
 
     @Test
-    public void testCanNotRegisterSameUserTwice(){
+    public void testCanNotRegisterSameUserTwice() {
         UserPayload user = new UserPayload()
-        .email(faker.internet().emailAddress())
-        .username(faker.name().username())
-        .password(faker.internet().password());
+                .email(faker.internet().emailAddress())
+                .username(faker.name().username())
+                .password(faker.internet().password());
         userApiService.registerUser(user)
                 .shouldHave(statusCode(200))
                 .shouldHave(bodyField("id", is(not(emptyString()))));
