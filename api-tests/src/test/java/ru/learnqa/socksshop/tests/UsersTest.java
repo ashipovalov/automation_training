@@ -35,11 +35,10 @@ public class UsersTest {
                 .email(faker.internet().emailAddress())
                 .username(faker.name().username())
                 .password(faker.internet().password());
-        UserRegistrationResponse response = userApiService.registerUser(user)
+        userApiService.registerUser(user)
                 .shouldHave(statusCode(200))
-                .shouldHave(bodyField("id", is(not(emptyString()))))
-                .asPojo(UserRegistrationResponse.class);
-        response.getId();
+                .shouldHave(bodyField("id", is(not(emptyString()))));
+
 
 
     }
