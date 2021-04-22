@@ -30,4 +30,11 @@ dependencies {
 
 test{
     useTestNG()
+    testLogging{
+        showStandardStreams = true
+        exceptionFormat = 'full'
+    }
+
+    test.outputs.upToDateWhen {false}
+
 }

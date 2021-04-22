@@ -1,4 +1,4 @@
-package ru.learnqa.socksshop.asserions;
+package ru.learnqa.socksshop.assertions;
 
 import io.restassured.response.Response;
 import lombok.RequiredArgsConstructor;
