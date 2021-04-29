@@ -4,13 +4,12 @@ import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
 
 import org.aeonbits.owner.ConfigFactory;
-import org.apache.commons.lang3.RandomStringUtils;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import ru.learnqa.socksshop.ProjectConfig;
 import ru.learnqa.socksshop.payloads.UserPayload;
-import ru.learnqa.socksshop.responses.UserRegistrationResponse;
 import ru.learnqa.socksshop.services.UserApiService;
 
 import java.util.Locale;
@@ -42,7 +41,6 @@ public class UsersTest {
         userApiService.registerUser(user)
                 .shouldHave(statusCode(200))
                 .shouldHave(bodyField("id", is(not(emptyString()))));
-
 
 
     }
