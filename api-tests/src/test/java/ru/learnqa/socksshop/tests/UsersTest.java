@@ -3,10 +3,12 @@ package ru.learnqa.socksshop.tests;
 import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
 
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import ru.learnqa.socksshop.ProjectConfig;
 import ru.learnqa.socksshop.payloads.UserPayload;
 import ru.learnqa.socksshop.responses.UserRegistrationResponse;
 import ru.learnqa.socksshop.services.UserApiService;
@@ -22,11 +24,13 @@ import static ru.learnqa.socksshop.conditions.Conditions.*;
 public class UsersTest {
 
     private final UserApiService userApiService = new UserApiService();
-    private final Faker faker = new Faker(new Locale("ru"));
+    private Faker faker;
 
     @BeforeClass
     public void setUp() {
-        RestAssured.baseURI = ("http://217.28.229.104/");
+        ProjectConfig config = ConfigFactory.create(ProjectConfig.class, System.getProperties());
+        RestAssured.baseURI = (config.baseUrl());
+        faker = new Faker(new Locale(config.locale()));
     }
 
     @Test

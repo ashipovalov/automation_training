@@ -16,5 +16,11 @@ public class StatusCodeCondition implements Condition {
                 .assertThat()
                 .statusCode(statusCode);
 
+
+   }
+
+    @Override
+    public String toString() {
+        return " status code is " + statusCode;
     }
 }

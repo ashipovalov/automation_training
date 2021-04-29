@@ -23,13 +23,16 @@ dependencies {
     implementation("org.testng:testng:$testNgVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation 'com.github.javafaker:javafaker:1.0.2'
-
-
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+    implementation 'org.aeonbits.owner:owner:1.0.12'
 }
 
 
 test{
     useTestNG()
+    systemProperties System.getProperties()
     testLogging{
         showStandardStreams = true
         exceptionFormat = 'full'
@@ -38,3 +41,12 @@ test{
     test.outputs.upToDateWhen {false}
 
 }
+
+tasks.withType(JavaCompile){
+        options.encoding = "UTF-8"
+        options.compilerArgs.add('-parameters')
+    }
+
+        tasks.withType(Javadoc){
+                options.encoding = "UTF-8"
+            }
