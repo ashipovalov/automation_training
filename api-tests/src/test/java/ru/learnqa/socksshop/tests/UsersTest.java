@@ -45,18 +45,18 @@ public class UsersTest {
 
     }
 
-    @Test
-    public void testCanNotRegisterSameUserTwice() {
-        UserPayload user = new UserPayload()
-                .email(faker.internet().emailAddress())
-                .username(faker.name().username())
-                .password(faker.internet().password());
-        userApiService.registerUser(user)
-                .shouldHave(statusCode(200))
-                .shouldHave(bodyField("id", is(not(emptyString()))));
-        userApiService.registerUser(user)
-                .shouldHave(statusCode(500));
-    }
+//    @Test
+//    public void testCanNotRegisterSameUserTwice() {
+//        UserPayload user = new UserPayload()
+//                .email(faker.internet().emailAddress())
+//                .username(faker.name().username())
+//                .password(faker.internet().password());
+//        userApiService.registerUser(user)
+//                .shouldHave(statusCode(200))
+//                .shouldHave(bodyField("id", is(not(emptyString()))));
+//        userApiService.registerUser(user)
+//                .shouldHave(statusCode(500));
+//    }
 
 
 }

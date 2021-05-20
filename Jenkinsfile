@@ -11,6 +11,6 @@ stage ("build"){
 }
 
 stage ("Run tests"){
-    sh "./gradlew clean api-tests:test"
+    sh "./gradlew clean api-tests:test -Dlogging=${LOGGING}"
 }
 }
