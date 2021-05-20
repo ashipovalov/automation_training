@@ -1,6 +1,6 @@
 node{
     stage("checkout repo"){
-    git branch: 'master',
+    git branch: 'main',
     credentialsId: 'efabc226-55f4-40d1-8a5f-2b48e0b2c48c',
     url: 'https://github.com/ashipovalov/automation_training'
 }
