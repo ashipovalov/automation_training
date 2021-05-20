@@ -12,5 +12,14 @@ stage ("build"){
 
 stage ("Run tests"){
     sh "./gradlew clean api-tests:test -Dlogging=${LOGGING}"
+
 }
+
+allure([
+properties: [],
+reportBuildPolicy: 'ALWAYS',
+results: [[path: 'api-tests\build\allure-results']]
+
+])
+
 }
