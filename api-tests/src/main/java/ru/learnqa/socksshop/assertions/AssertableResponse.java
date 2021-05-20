@@ -1,5 +1,6 @@
 package ru.learnqa.socksshop.assertions;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ public class AssertableResponse {
 
 
 
+    @Step("Ответ сервиса должен содержать {condition}")
     public AssertableResponse shouldHave(Condition condition){
         log.info("Кое что о проверке условия{}" , condition);
         condition.check(response);
