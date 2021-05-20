@@ -6,6 +6,7 @@ node{
 }
 
 stage ("build"){
+    sh ("chmod +x gradlew")
     sh "./gradlew clean api-tests:assemble"
 }
 
