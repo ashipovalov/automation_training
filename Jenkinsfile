@@ -6,10 +6,10 @@ node{
 }
 
 stage ("build"){
-    sh "sudo ./gradlew clean api-tests:assemble"
+    sh "./gradlew clean api-tests:assemble"
 }
 
 stage ("Run tests"){
-    sh "sudo ./gradlew clean api-tests:test"
+    sh "./gradlew clean api-tests:test"
 }
 }
