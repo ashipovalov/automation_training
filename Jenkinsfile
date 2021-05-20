@@ -18,7 +18,7 @@ stage ("Run tests"){
 allure([
 properties: [],
 reportBuildPolicy: 'ALWAYS',
-results: [[path: 'api-tests\build\allure-results']]
+results: [[path: 'api-tests/build/allure-results']]
 
 ])
 
